@@ -2,9 +2,17 @@
 .env
 .env.local
 node_modules/
-vendor/
-!vendor/phpmailer/
-!vendor/phpmailer/**
+.vscode/
+.env
+.env.local
+node_modules/
+.DS_Store
+*.log
+/.idea/
+/.cache/
+/.pytest_cache/
+Thumbs.db
+/.phpunit.result.cache
 .DS_Store
 *.log
 /.idea/
@@ -12,8 +20,10 @@ vendor/
 /.pytest_cache/
 Thumbs.db
 /.phpunit.result.cache# OS files
-.DS_Store
-Thumbs.db
+# Allow vendored PHPMailer only (we vendor PHPMailer src for local SMTP)
+vendor/
+!vendor/phpmailer/
+!vendor/phpmailer/**
 
 # Editor/IDE
 .vscode/
@@ -22,7 +32,6 @@ Thumbs.db
 
 # PHP / local server
 *.log
-vendor/
 
 # Environment files (DB credentials)
 .env
