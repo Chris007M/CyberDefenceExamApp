@@ -88,9 +88,12 @@ Only needed if you want server-verified grading or to log attempts in MySQL.
    mysql -u root -p -e "CREATE DATABASE cyber_defence_exam;"
    mysql -u root -p cyber_defence_exam < database/schema.sql
    ```
-   Then edit `includes/db.php` with your MySQL credentials, or set environment variables `CD_DB_HOST`, `CD_DB_NAME`, `CD_DB_USER`, `CD_DB_PASS`.
-5. Visit `http://localhost/CyberDefenceExamApp/index.html` in your browser.
-6. To use server-side grading instead of the default client-side grading, POST the submitted answers to `api/grade.php` — see the docblock in that file for the expected JSON shape.
+   Configure a dedicated non-root DB user and set these environment variables:
+   `CD_DB_HOST`, `CD_DB_NAME`, `CD_DB_USER`, `CD_DB_PASS`.
+   Do not use root credentials for the production backend.
+5. Set `CD_API_KEY` before enabling `api/grade.php`. The grading endpoint is intentionally disabled unless this key is configured.
+6. Visit `http://localhost/CyberDefenceExamApp/index.html` in your browser.
+7. To use server-side grading instead of the default client-side grading, POST the submitted answers to `api/grade.php` with header `X-Exam-Auth: <your-key>` — see the docblock in that file for the expected JSON shape.
 
 ---
 
@@ -112,7 +115,7 @@ Since the exam works entirely client-side, GitHub Pages is the simplest way to g
 4. Under **Source**, choose the `main` branch and `/ (root)` folder, then **Save**.
 5. After a minute, your exam will be live at:
    ```
-   https://<your-username>.github.io/CyberDefenceStrategiesExam/
+   https://chris007m.github.io/CyberDefenceExamApp/
    ```
 6. Share that link with students. Each student gets their own private session (answers are stored only in their own browser via `sessionStorage`, never sent anywhere) — so no two students see each other's progress, and nothing is uploaded automatically. If you want to *collect* results centrally, use the optional PHP/MySQL backend on a server that supports PHP (GitHub Pages itself only serves static files and cannot run PHP).
 
