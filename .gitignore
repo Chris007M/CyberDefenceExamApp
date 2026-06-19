@@ -1,0 +1,30 @@
+/.vscode/
+.env
+.env.local
+node_modules/
+vendor/
+.DS_Store
+*.log
+/.idea/
+/.cache/
+/.pytest_cache/
+Thumbs.db
+/.phpunit.result.cache# OS files
+.DS_Store
+Thumbs.db
+
+# Editor/IDE
+.vscode/
+.idea/
+*.swp
+
+# PHP / local server
+*.log
+vendor/
+
+# Environment files (DB credentials)
+.env
+.env.local
+
+# XAMPP/WAMP local artifacts
+htdocs/

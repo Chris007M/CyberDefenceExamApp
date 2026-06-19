@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cyber Defence Strategies – Exam</title>
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body class="landing-page">
+
+  <div class="landing-wrapper">
+    <header class="landing-header">
+      <div class="shield-icon">
+        <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M32 4L8 14v18c0 13.3 10.3 25.7 24 29 13.7-3.3 24-15.7 24-29V14L32 4z" fill="#0a2540" stroke="#00e5ff" stroke-width="2"/>
+          <path d="M22 32l7 7 13-13" stroke="#00e5ff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <h1 class="landing-title">Cyber Defence Strategies</h1>
+      <p class="landing-subtitle">Self-Evaluation Exam</p>
+    </header>
+
+    <section class="info-grid">
+      <div class="info-card">
+        <span class="info-icon">📋</span>
+        <div>
+          <strong>50 Questions</strong>
+          <span>MCQ, True/False & Multi-select</span>
+        </div>
+      </div>
+      <div class="info-card">
+        <span class="info-icon">⏱</span>
+        <div>
+          <strong>60 Minutes</strong>
+          <span>Timed examination</span>
+        </div>
+      </div>
+      <div class="info-card">
+        <span class="info-icon">🎯</span>
+        <div>
+          <strong>Pass Mark: 50%</strong>
+          <span>50 out of 100 marks</span>
+        </div>
+      </div>
+      <div class="info-card">
+        <span class="info-icon">✅</span>
+        <div>
+          <strong>2 Marks Each</strong>
+          <span>100 marks total</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="rules-section">
+      <h2>Exam Instructions</h2>
+      <ul>
+        <li>This exam contains <strong>50 questions</strong>, each worth <strong>2 marks</strong>. The total is 100 marks.</li>
+        <li>A minimum score of <strong>50% (50/100)</strong> is required to pass.</li>
+        <li>You have <strong>1 hour</strong> from the moment you begin. The timer runs continuously — do not close the browser.</li>
+        <li>Some questions allow <strong>multiple correct answers</strong> — read each question carefully.</li>
+        <li>You may <strong>review all your answers</strong> before submitting using the Review button.</li>
+        <li>Instant feedback and explanations are provided after submission.</li>
+        <li>This is an <strong>open-book</strong> self-evaluation. You may refer to course materials.</li>
+      </ul>
+    </section>
+
+    <section class="topics-section">
+      <h2>Topics Covered</h2>
+      <div class="topics-grid">
+        <span class="topic-tag">Risk Assessment</span>
+        <span class="topic-tag">Governance & Frameworks</span>
+        <span class="topic-tag">Security Controls</span>
+        <span class="topic-tag">Access Management (AAA)</span>
+        <span class="topic-tag">Zero Trust</span>
+        <span class="topic-tag">Data Protection</span>
+        <span class="topic-tag">Threat Intelligence</span>
+        <span class="topic-tag">Incident Response</span>
+        <span class="topic-tag">Business Continuity</span>
+        <span class="topic-tag">Cloud Security</span>
+        <span class="topic-tag">Security Testing</span>
+        <span class="topic-tag">Change Management</span>
+      </div>
+    </section>
+
+    <div class="start-section">
+      <button class="btn-start" id="startExamBtn" onclick="startExam()">
+        Begin Exam
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M5 12h14M12 5l7 7-7 7"/>
+        </svg>
+      </button>
+      <p class="start-note">Once started, the 60-minute timer cannot be paused.</p>
+    </div>
+  </div>
+
+  <script>
+    function startExam() {
+      window.location.href = 'exam.html';
+    }
+  </script>
+</body>
+</html>

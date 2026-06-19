@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Results – Cyber Defence Exam</title>
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body class="results-page">
+
+  <div class="results-wrapper">
+
+    <!-- Score Banner -->
+    <div class="score-banner" id="scoreBanner">
+      <div class="score-shield" id="scoreShield">🛡</div>
+      <div class="score-main">
+        <div class="score-number" id="scoreNumber">--</div>
+        <div class="score-label">out of 100</div>
+      </div>
+      <div class="score-verdict" id="scoreVerdict"></div>
+      <div class="score-stats">
+        <div class="stat-item">
+          <span class="stat-val" id="statCorrect">--</span>
+          <span class="stat-lbl">Correct</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-val" id="statWrong">--</span>
+          <span class="stat-lbl">Incorrect</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-val" id="statSkipped">--</span>
+          <span class="stat-lbl">Skipped</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-val" id="statTime">--</span>
+          <span class="stat-lbl">Time Used</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Filter Bar -->
+    <div class="filter-bar">
+      <button class="filter-btn active" data-filter="all" onclick="filterResults('all', this)">All Questions</button>
+      <button class="filter-btn" data-filter="correct" onclick="filterResults('correct', this)">✅ Correct</button>
+      <button class="filter-btn" data-filter="wrong" onclick="filterResults('wrong', this)">❌ Incorrect</button>
+      <button class="filter-btn" data-filter="skipped" onclick="filterResults('skipped', this)">⬜ Skipped</button>
+    </div>
+
+    <!-- Answers Review -->
+    <div class="answers-list" id="answersList"></div>
+
+    <!-- Action Buttons -->
+    <div class="results-actions">
+      <button class="btn-action btn-retry" onclick="retryExam()">🔄 Retake Exam</button>
+      <button class="btn-action btn-home" onclick="goHome()">🏠 Home</button>
+      <button class="btn-action btn-print" onclick="window.print()">🖨 Print Results</button>
+    </div>
+
+  </div>
+
+  <script src="assets/js/questions.js"></script>
+  <script src="assets/js/results.js"></script>
+</body>
+</html>

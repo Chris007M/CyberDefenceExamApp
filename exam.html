@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Exam in Progress – Cyber Defence</title>
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body class="exam-page">
+
+  <!-- Top Bar -->
+  <div class="exam-topbar">
+    <div class="topbar-left">
+      <div class="shield-sm">🛡</div>
+      <span class="topbar-title">Cyber Defence Exam</span>
+    </div>
+    <div class="topbar-center">
+      <span class="progress-text">Question <span id="currentQ">1</span> of 50</span>
+      <div class="progress-bar-wrap">
+        <div class="progress-bar-fill" id="progressBar" style="width:2%"></div>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <div class="timer-box" id="timerBox">
+        <span class="timer-icon">⏱</span>
+        <span id="timerDisplay">60:00</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Exam Area -->
+  <div class="exam-layout">
+
+    <!-- Question Navigator Sidebar -->
+    <aside class="q-sidebar">
+      <h3 class="sidebar-heading">Questions</h3>
+      <div class="q-grid" id="qNavGrid"></div>
+      <div class="sidebar-legend">
+        <span class="leg unanswered"></span> Unanswered
+        <span class="leg answered"></span> Answered
+        <span class="leg current"></span> Current
+      </div>
+    </aside>
+
+    <!-- Question Panel -->
+    <main class="question-panel">
+      <div class="question-card" id="questionCard">
+        <div class="q-meta">
+          <span class="q-number" id="qNumber">Q1</span>
+          <span class="q-type-badge" id="qTypeBadge">Single Choice</span>
+          <span class="q-marks">2 marks</span>
+        </div>
+        <p class="q-text" id="qText"></p>
+        <div class="options-list" id="optionsList"></div>
+      </div>
+
+      <div class="exam-nav">
+        <button class="btn-nav btn-prev" id="btnPrev" onclick="navigateQ(-1)" disabled>
+          ← Previous
+        </button>
+        <div class="nav-center-btns">
+          <button class="btn-review" onclick="openReview()">
+            📋 Review All
+          </button>
+        </div>
+        <button class="btn-nav btn-next" id="btnNext" onclick="navigateQ(1)">
+          Next →
+        </button>
+      </div>
+
+      <div class="submit-section" id="submitSection" style="display:none">
+        <button class="btn-submit" onclick="confirmSubmit()">
+          Submit Exam ✓
+        </button>
+      </div>
+    </main>
+  </div>
+
+  <!-- Review Modal -->
+  <div class="modal-overlay" id="reviewModal" style="display:none">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h2>Review All Questions</h2>
+        <button class="modal-close" onclick="closeReview()">✕</button>
+      </div>
+      <div class="modal-body" id="reviewBody"></div>
+      <div class="modal-footer">
+        <button class="btn-modal-close" onclick="closeReview()">Continue Exam</button>
+        <button class="btn-modal-submit" onclick="confirmSubmit()">Submit Exam</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Confirm Submit Modal -->
+  <div class="modal-overlay" id="confirmModal" style="display:none">
+    <div class="modal-box modal-sm">
+      <h2>Submit Exam?</h2>
+      <p id="confirmMsg"></p>
+      <div class="modal-footer">
+        <button class="btn-modal-close" onclick="closeConfirm()">Go Back</button>
+        <button class="btn-modal-submit" onclick="submitExam()">Yes, Submit</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="assets/js/questions.js"></script>
+  <script src="assets/js/exam.js"></script>
+</body>
+</html>
