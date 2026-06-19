@@ -1,0 +1,8 @@
+# SMTP env for CyberDefenceExamApp
+SetEnv SMTP_HOST smtp.gmail.com
+SetEnv SMTP_PORT 587
+SetEnv SMTP_USER windows.congress@gmail.com
+SetEnv SMTP_PASS oahccfxfhszlqezq
+SetEnv SMTP_SECURE tls
+SetEnv SMTP_FROM windows.congress@gmail.com
+SetEnv SMTP_FROM_NAME "Cyber Defence Exam"
