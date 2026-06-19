@@ -77,11 +77,17 @@ try {
     $sent = false;
     $mailError = null;
 
-    // Try PHPMailer if installed via Composer
-    if (file_exists(__DIR__ . '/../vendor/autoload.php') && $smtpHost && $smtpUser && $smtpPass) {
+    // Try PHPMailer if installed via Composer (or vendored)
+    if ($smtpHost && $smtpUser && $smtpPass) {
         try {
-            require_once __DIR__ . '/../vendor/autoload.php';
+            // Load PHPMailer from vendored source to avoid Composer dependency issues
+            require_once __DIR__ . '/../vendor/phpmailer/phpmailer/src/Exception.php';
+            require_once __DIR__ . '/../vendor/phpmailer/phpmailer/src/PHPMailer.php';
+            require_once __DIR__ . '/../vendor/phpmailer/phpmailer/src/SMTP.php';
             $mail = new PHPMailer\PHPMailer\PHPMailer(true);
+            // Enable debug logging to Apache error log for troubleshooting
+            $mail->SMTPDebug = 2;
+            $mail->Debugoutput = function($str, $level) { error_log("PHPMailer: [$level] $str"); };
             $mail->isSMTP();
             $mail->Host = $smtpHost;
             $mail->Port = (int)$smtpPort;
