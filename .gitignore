@@ -3,6 +3,8 @@
 .env.local
 node_modules/
 vendor/
+!vendor/phpmailer/
+!vendor/phpmailer/**
 .DS_Store
 *.log
 /.idea/
