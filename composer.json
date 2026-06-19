@@ -1,0 +1,7 @@
+{
+  "name": "cyberdefence/exam",
+  "description": "Cyber Defence Exam app dependencies",
+  "require": {
+    "phpmailer/phpmailer": "^6.8"
+  }
+}

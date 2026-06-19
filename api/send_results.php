@@ -65,11 +65,50 @@ try {
         $body .= sprintf("Q%d: %s -- %s\n", $d['id'], substr($d['question'], 0, 80), $d['isCorrect'] ? 'Correct' : ($d['answered'] ? 'Incorrect' : 'Skipped'));
     }
 
-    // Attempt to send email — uses PHP mail(); may require server configuration
-    $headers = "From: no-reply@localhost" . "\r\n" . "Content-Type: text/plain; charset=UTF-8";
+    // Prefer PHPMailer via SMTP if available and SMTP settings are configured.
+    $smtpHost = getenv('SMTP_HOST');
+    $smtpPort = getenv('SMTP_PORT') ?: 587;
+    $smtpUser = getenv('SMTP_USER');
+    $smtpPass = getenv('SMTP_PASS');
+    $smtpSecure = getenv('SMTP_SECURE') ?: 'tls'; // tls or ssl
+    $from = getenv('SMTP_FROM') ?: "no-reply@localhost";
+    $fromName = getenv('SMTP_FROM_NAME') ?: 'Cyber Defence Exam';
+
     $sent = false;
-    if (function_exists('mail')) {
-        $sent = mail($email, $subject, $body, $headers);
+    $mailError = null;
+
+    // Try PHPMailer if installed via Composer
+    if (file_exists(__DIR__ . '/../vendor/autoload.php') && $smtpHost && $smtpUser && $smtpPass) {
+        try {
+            require_once __DIR__ . '/../vendor/autoload.php';
+            $mail = new PHPMailer\PHPMailer\PHPMailer(true);
+            $mail->isSMTP();
+            $mail->Host = $smtpHost;
+            $mail->Port = (int)$smtpPort;
+            $mail->SMTPAuth = true;
+            $mail->Username = $smtpUser;
+            $mail->Password = $smtpPass;
+            $mail->SMTPSecure = $smtpSecure === 'ssl' ? PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_SMTPS : PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_STARTTLS;
+            $mail->setFrom($from, $fromName);
+            $mail->addAddress($email);
+            $mail->Subject = $subject;
+            $mail->Body = $body;
+            $mail->AltBody = $body;
+            $mail->send();
+            $sent = true;
+        } catch (Exception $ex) {
+            $mailError = $ex->getMessage();
+            $sent = false;
+        }
+    } else {
+        // Fallback to PHP mail() if available
+        $headers = "From: {$from}" . "\r\n" . "Content-Type: text/plain; charset=UTF-8";
+        if (function_exists('mail')) {
+            $sent = mail($email, $subject, $body, $headers);
+            if (!$sent) $mailError = 'mail() returned false';
+        } else {
+            $mailError = 'No mailer available (install PHPMailer via Composer or enable mail())';
+        }
     }
 
     if ($sent) {
@@ -77,7 +116,7 @@ try {
     } else {
         // Email may fail on local dev — return success=false but still return results
         http_response_code(202);
-        echo json_encode(['success' => false, 'message' => 'Could not send email from this server (check mail configuration).', 'result' => $result]);
+        echo json_encode(['success' => false, 'message' => 'Could not send email from this server (check mail configuration).', 'mailError' => $mailError, 'result' => $result]);
     }
 } catch (Throwable $e) {
     http_response_code(500);
