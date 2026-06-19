@@ -96,6 +96,11 @@
     <div class="modal-box modal-sm">
       <h2>Submit Exam?</h2>
       <p id="confirmMsg"></p>
+      <div style="margin-top:8px">
+        <label for="submitEmail">Enter your email to receive results:</label>
+        <input type="email" id="submitEmail" name="submitEmail" placeholder="you@example.com" style="width:100%; padding:8px; margin-top:6px; box-sizing:border-box" />
+        <div id="emailError" style="color:#c33; font-size:0.9em; display:none; margin-top:6px"></div>
+      </div>
       <div class="modal-footer">
         <button class="btn-modal-close" onclick="closeConfirm()">Go Back</button>
         <button class="btn-modal-submit" onclick="submitExam()">Yes, Submit</button>

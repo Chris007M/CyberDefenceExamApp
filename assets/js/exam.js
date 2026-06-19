@@ -275,15 +275,51 @@ function submitExam() {
   clearInterval(timerInterval);
 
   const timeTakenSeconds = EXAM_DURATION - timeRemaining;
+  // Require a valid email address before submitting
+  const emailEl = document.getElementById('submitEmail');
+  const emailErrorEl = document.getElementById('emailError');
+  const email = emailEl ? (emailEl.value || '').trim() : '';
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(email)) {
+    if (emailErrorEl) {
+      emailErrorEl.style.display = 'block';
+      emailErrorEl.textContent = 'Please enter a valid email address to receive your results.';
+    }
+    if (emailEl) emailEl.focus();
+    return;
+  }
+
+  if (emailErrorEl) { emailErrorEl.style.display = 'none'; }
+
   const resultsPayload = {
     userAnswers,
     timeTakenSeconds,
     submittedAt: Date.now()
   };
 
+  // Save results to sessionStorage for the results page
   sessionStorage.setItem('cd_exam_results', JSON.stringify(resultsPayload));
   sessionStorage.setItem('cd_exam_submitted', 'true');
   sessionStorage.removeItem('cd_exam_state');
 
+  // Send results to server to email the user (best-effort). Do not block navigation for too long.
+  (async () => {
+    try {
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 5000);
+      await fetch('api/send_results.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, answers: userAnswers, timeTakenSeconds }),
+        signal: controller.signal
+      });
+      clearTimeout(timeout);
+    } catch (e) {
+      // ignore network errors — results page will still show local grading
+      console.warn('Failed to send results to server:', e);
+    }
+  })();
+
+  // Navigate to results page
   window.location.href = 'results.html';
 }
